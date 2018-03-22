@@ -1,5 +1,284 @@
+<!DOCTYPE html>
 <html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="styles.css">
+
+<!--<style>
+body {
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+input[type=email], input[type=password], input[type=text] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    width: 100%;
+}
+
+button:hover {
+    opacity: 0.8;
+}
+
+button:disabled {
+	opacity: 0.5;
+}
+
+.cancelbtn {
+    width: auto;
+    padding: 10px 18px;
+    background-color: #f44336;
+}
+
+.container {
+    padding: 16px;
+}
+
+span.psw {
+    float: right;
+    padding-top: 16px;
+}
+
+.modal {
+    display: none;
+    position: fixed; 
+    z-index: 1; 
+    left: 0;
+    top: 0;
+    width: 100%; 
+    height: 100%; 
+    overflow: auto; 
+    background-color: rgb(0,0,0); 
+    background-color: rgba(0,0,0,0.4); 
+    padding-top: 60px;
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto;
+    border: 1px solid #888;
+    width: 80%; 
+}
+
+.animate {
+    -webkit-animation: animatefade 0.6s;
+    animation: animatefade 0.6s
+}
+
+@-webkit-keyframes animatefade {
+    /*from {-webkit-transform: scale(0)} 
+    to {-webkit-transform: scale(1)}*/
+    from {-webkit-opacity: 0} 
+    to {-webkit-opacity: 1}
+}
+    
+@keyframes animatefade {
+    /*from {transform: scale(0)} 
+    to {transform: scale(1)}*/
+    from {opacity: 0} 
+    to {opacity: 1}
+}
+
+</style>-->
+</head>
 <body>
-<a href="mailto:andej1155@gmail.com">andej1155@gmail.com</a>
+
+<p>Hover over the button below</p>
+<button onmouseover="resetModal(); document.getElementById('id01').style.display='block'" style="width:auto;">Account</button>
+
+<div id="id01" class="modal">
+  
+  <form id="form1" class="modal-content animate" action="/action_page.php" onsubmit="modal.style.display = 'none'; form1.reset();">
+
+    <div class="container">
+      <label for="uname"><b>Email</b></label>
+      <input id="emailInp" type="email" placeholder="Enter Email Address" name="uname" required onkeyup="checkValids()">
+
+      <label for="psw"><b>Password</b></label>
+      <input id="pswInp" type="password" placeholder="Enter Password" name="psw" required onkeyup="checkValids()">
+        
+      <button id="form1submit" type="submit" disabled>Login</button>
+      <label>
+        <input type="checkbox" checked="checked" name="remember"> Remember me
+      </label>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="reg">Register</span>
+      <span class="psw" id="forPass">Forgot password?</span>
+    </div>
+  </form>
+  
+  
+  
+  <form id="form3" class="modal-content animate" action="/action_page.php" style="display: none;" onsubmit="register()">
+
+    <div class="container">
+    
+      <label for="uname"><b>Name</b></label>
+      <input id="nameInpReg" type="text" placeholder="Enter Name" name="uname" required onkeyup="checkValidReg();" onblur="validateName()" >
+      <p id="nameVal" hidden>Please enter a name</p>
+    
+      <label for="uname"><b>Email</b></label>
+      <input id="emailInpReg" type="email" placeholder="Enter Email Address" name="uname" required onkeyup="checkValidReg();" onblur="validateEmail()">
+      <p id="emailVal" hidden>Please enter a valid email, such as abc@xyz.com</p>
+      
+      <label for="psw"><b>Password</b></label>
+      <input id="pswInpReg" type="password" placeholder="Enter Password at least 7 characters long" name="psw" required onkeyup="checkValidReg();" onblur="validatePsw()">
+      <p id="pswVal" hidden>Please enter a password at least 7 characters long</p>
+        
+      <button type="submit" id="regBtn" disabled>Register</button>
+      
+    </div>
+
+    
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <a><span class="psw remembered">Return to sign in</span></a>
+    </div>
+  </form>
+  
+  
+  
+  <form id="form2" class="modal-content animate" action="/action_page.php" style="display: none;">
+
+    <div class="container">
+      <label for="uname"><b>Email</b></label>
+      <h5>We'll send you a recovery email</h5>
+      <input type="email" placeholder="Enter Email Address" id="emailRec" name="uname" required onkeyup="validateRecoverEmail();">
+      <p id="emailRecValFalse" hidden>Please enter a valid email, such as abc@xyz.com</p>
+      <p id="emailRecValTrue" hidden>Email validated, please hit "Send"</p>
+      
+      <button type="submit" id="recoverySubmit" disabled>Send</button>
+      
+    </div>
+	<div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+      <span class="reg">Register</span>
+      <a><span class="psw remembered" id="remembered">I remembered!</span></a>
+    </div>
+    
+  </form>
+  
+  <form id="form4" class="modal-content animate" action="/action_page.php" style="display: none;">
+
+    <div class="container">
+      <label for="uname" id="thanks"></label>
+        
+      <button type="submit" id="recoverySubmit" onclick="modal.style.display = 'none'; form2.style.display = 'none';
+        form3.style.display = 'none'; 
+        form4.style.display = 'none';     
+        form1.style.display = 'block';">Let's go shopping!</button>
+      
+    </div>
+    
+  </form>
+</div>
+
+<!--<script>
+var modal = document.getElementById('id01');
+var fp = document.getElementById('forPass');
+var rem = document.getElementById('remembered');
+var form1 = document.getElementById('form1');
+var form2 = document.getElementById('form2');
+var form3 = document.getElementById('form3');
+var form1submit = document.getElementById('form1submit');
+var name = "";
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+    else if (event.target == fp){
+        form1.style.display = "none";
+        form2.style.display = "block";   
+    }
+    else if (event.target.className == "psw remembered"){
+        form2.style.display = "none";
+        form3.style.display = "none";     
+        form1.style.display = "block";
+    }
+    else if (event.target.className == "reg"){
+    	form1.style.display = "none";
+        form2.style.display = "none"; 
+        form3.style.display = "block";
+    }
+}
+
+function checkValids() {
+	if (document.getElementById("emailInp").checkValidity() && document.getElementById("pswInp").checkValidity()){
+		form1submit.disabled = false;
+	}else {
+		form1submit.disabled = false;
+	}
+}
+
+function checkValidReg(){
+	if(document.getElementById("nameInpReg").checkValidity() && document.getElementById("pswInpReg").checkValidity() && document.getElementById("emailInpReg").checkValidity() && document.getElementById("pswInpReg").value.length > 6 ){
+		document.getElementById("regBtn").disabled = false;
+	}else{
+		document.getElementById("regBtn").disabled = true;
+	}
+}
+
+function validateName(){
+	document.getElementById("nameVal").hidden = (document.getElementById("nameInpReg").checkValidity());
+}
+
+function validateEmail(){
+	document.getElementById("emailVal").hidden = (document.getElementById("emailInpReg").checkValidity());
+}
+
+function validatePsw(){
+	document.getElementById("pswVal").hidden = (document.getElementById("pswInpReg").checkValidity() && document.getElementById("pswInpReg").value.length > 6);
+}
+
+function register(){
+	document.getElementById('thanks').innerText = "Thanks for registering, " + document.getElementById('nameInpReg').value +"!";
+	form3.style.display = "none";
+	form4.style.display = "block";
+	form3.reset();
+}
+
+function resetModal(){
+	form1.reset();
+	form2.reset();
+	form3.reset();
+	form4.reset();
+	form4.style.display = "none";
+	form3.style.display = "none";
+    form2.style.display = "none";     
+    form1.style.display = "block";
+}
+
+function validateRecoverEmail(){
+	if(document.getElementById('emailRec').checkValidity()){
+		document.getElementById('emailRecValFalse').hidden = true;
+		document.getElementById('emailRecValTrue').hidden = false;
+		document.getElementById('recoverySubmit').disabled = false;
+	}else{
+		document.getElementById('emailRecValFalse').hidden = false;
+		document.getElementById('emailRecValTrue').hidden = true;
+		document.getElementById('recoverySubmit').disabled = true;
+	}
+}
+</script>-->
+<script type="text/javascript" src="scripts.js"></script>
 </body>
 </html>
+
