@@ -31,13 +31,24 @@ window.onclick = function(event) {
 function checkValids() {
 	if (document.getElementById("emailInp").checkValidity() && document.getElementById("pswInp").checkValidity()){
 		form1submit.disabled = false;
-		document.getElementById("loginEmailVal").hidden = true;
-	}else if (!(document.getElementById("emailInp").checkValidity())){
+	}else{
 		form1submit.disabled = true;
+	}
+}
+function checkLoginEmailVal() {
+	if (document.getElementById("emailInp").checkValidity()) {
+		document.getElementById("loginEmailVal").hidden = true;
+	}
+	else {
 		document.getElementById("loginEmailVal").hidden = false;
-	} else {
-		form1submit.disabled = true;
-		document.getElementById("loginEmailVal").hidden = true;
+	}
+}
+function checkLoginPswVal() {
+	if (document.getElementById("pswInp").value.length != 0) {
+		document.getElementById("loginPswVal").hidden = true;
+	}
+	else {
+		document.getElementById("loginPswVal").hidden = false;
 	}
 }
 
