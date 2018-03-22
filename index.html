@@ -12,7 +12,7 @@
 
 <div id="id01" class="modal">
   
-  <form id="form1" class="modal-content animate" onsubmit="modal.style.display = 'none'; form1.reset();">
+  <form id="form1" class="modal-content animate">
 
     <div class="container">
       <label for="uname"><b>Email</b></label>
@@ -22,7 +22,7 @@
       <label for="psw"><b>Password</b></label>
       <input id="pswInp" type="password" placeholder="Enter Password" name="psw" required onkeyup="checkValids()">
         
-      <button id="form1submit" type="submit" disabled>Login</button>
+      <button id="form1submit" type="button" onclick="modal.style.display = 'none'; form1.reset();" disabled>Login</button>
       <label>
         <input type="checkbox" checked="checked" name="remember"> Remember me
       </label>
@@ -37,7 +37,7 @@
   
   
   
-  <form id="form3" class="modal-content animate" style="display: none;" onsubmit="register()">
+  <form id="form3" class="modal-content animate" style="display: none;">
 
     <div class="container">
     
@@ -53,7 +53,7 @@
       <input id="pswInpReg" type="password" placeholder="Enter Password at least 7 characters long" name="psw" required onkeyup="checkValidReg();" onblur="validatePsw()">
       <p id="pswVal" hidden>Please enter a password at least 7 characters long</p>
         
-      <button type="submit" id="regBtn" disabled>Register</button>
+      <button type="button" id="regBtn" onclick="register()" disabled>Register</button>
       
     </div>
 
