@@ -31,8 +31,13 @@ window.onclick = function(event) {
 function checkValids() {
 	if (document.getElementById("emailInp").checkValidity() && document.getElementById("pswInp").checkValidity()){
 		form1submit.disabled = false;
-	}else {
+		document.getElementById("loginEmailVal").hidden = true;
+	}else if (!(document.getElementById("emailInp").checkValidity())){
 		form1submit.disabled = true;
+		document.getElementById("loginEmailVal").hidden = false;
+	} else {
+		form1submit.disabled = true;
+		document.getElementById("loginEmailVal").hidden = true;
 	}
 }
 
